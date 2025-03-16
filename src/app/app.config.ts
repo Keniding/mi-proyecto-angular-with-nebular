@@ -1,13 +1,14 @@
-import {ApplicationConfig, importProvidersFrom, provideZoneChangeDetection} from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import {provideAnimations} from '@angular/platform-browser/animations';
-import {NbLayoutModule, NbThemeModule} from '@nebular/theme';
-import {NbEvaIconsModule} from '@nebular/eva-icons';
-import {NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken, NbTokenStorage} from '@nebular/auth';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken, NbTokenStorage } from '@nebular/auth';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { SSRSafeTokenStorage } from './auth-storage.service';
+import {socialLinks} from './core/utils/auth-social-links';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -54,7 +55,65 @@ export const appConfig: ApplicationConfig = {
             },
           }),
         ],
-        forms: {},
+        forms: {
+          login: {
+            redirectDelay: 500,
+            strategy: 'email',
+            rememberMe: true,
+            showMessages: {
+              success: true,
+              error: true,
+            },
+            socialLinks: socialLinks,
+          },
+          register: {
+            redirectDelay: 500,
+            strategy: 'email',
+            showMessages: {
+              success: true,
+              error: true,
+            },
+            terms: true,
+            socialLinks: socialLinks,
+          },
+          requestPassword: {
+            redirectDelay: 500,
+            strategy: 'email',
+            showMessages: {
+              success: true,
+              error: true,
+            },
+            socialLinks: socialLinks,
+          },
+          resetPassword: {
+            redirectDelay: 500,
+            strategy: 'email',
+            showMessages: {
+              success: true,
+              error: true,
+            },
+            socialLinks: socialLinks,
+          },
+          logout: {
+            redirectDelay: 500,
+            strategy: 'email',
+          },
+          validation: {
+            password: {
+              required: true,
+              minLength: 4,
+              maxLength: 50,
+            },
+            email: {
+              required: true,
+            },
+            fullName: {
+              required: false,
+              minLength: 4,
+              maxLength: 50,
+            },
+          },
+        },
       }),
     ),
   ],
