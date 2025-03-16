@@ -3,7 +3,17 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import {CORPORATE_THEME, COSMIC_THEME, DARK_THEME, DEFAULT_THEME, NbLayoutModule, NbThemeModule} from '@nebular/theme';
+import {
+  CORPORATE_THEME,
+  COSMIC_THEME,
+  DARK_THEME,
+  DEFAULT_THEME,
+  NbLayoutModule,
+  NbSidebarModule,
+  NbThemeModule,
+  NbSelectModule,
+  NbOptionModule
+} from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken, NbTokenStorage } from '@nebular/auth';
 import { provideHttpClient, withFetch } from '@angular/common/http';
@@ -26,6 +36,9 @@ export const appConfig: ApplicationConfig = {
         [ DEFAULT_THEME, DARK_THEME, COSMIC_THEME, CORPORATE_THEME ],
       ),
       NbLayoutModule,
+      NbSidebarModule.forRoot(),
+      NbSelectModule,
+      NbOptionModule,
       NbEvaIconsModule,
       NbAuthModule.forRoot({
         strategies: [

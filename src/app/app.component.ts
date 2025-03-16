@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {NbLayoutModule, NbSelectModule, NbThemeService} from '@nebular/theme';
+import {
+  NbLayoutModule,
+  NbSelectModule,
+  NbThemeService,
+  NbSidebarModule,
+  NbOptionModule
+} from '@nebular/theme';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +17,8 @@ import {NbLayoutModule, NbSelectModule, NbThemeService} from '@nebular/theme';
     RouterOutlet,
     NbLayoutModule,
     NbSelectModule,
+    NbSidebarModule,
+    NbOptionModule
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
