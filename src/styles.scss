@@ -3,5 +3,7 @@
 @use '@nebular/theme/styles/themes/default';
 @use '@nebular/theme/styles/themes/dark';
 @use '@nebular/theme/styles/globals' as nb-globals;
+@use '@nebular/auth/styles/globals' as nb-auth;
 
 @include nb-globals.nb-theme-global();
+@include nb-auth.nb-auth-global();
