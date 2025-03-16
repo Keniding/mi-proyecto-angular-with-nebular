@@ -2,8 +2,23 @@
 @use '@nebular/theme/styles/theming' as *;
 @use '@nebular/theme/styles/themes/default';
 @use '@nebular/theme/styles/themes/dark';
+@use '@nebular/theme/styles/themes/cosmic';
+@use '@nebular/theme/styles/themes/corporate';
 @use '@nebular/theme/styles/globals' as nb-globals;
 @use '@nebular/auth/styles/globals' as nb-auth;
 
+$nb-themes: nb-register-theme((
+), default, default);
+
+$nb-themes: nb-register-theme((
+), dark, dark);
+
+$nb-themes: nb-register-theme((
+), cosmic, cosmic);
+
+$nb-themes: nb-register-theme((
+), corporate, corporate);
+
+// Incluye los estilos globales
 @include nb-globals.nb-theme-global();
 @include nb-auth.nb-auth-global();

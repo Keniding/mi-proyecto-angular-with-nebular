@@ -1,8 +1,11 @@
 <nb-layout>
   <nb-layout-header fixed>
-    <button nbButton (click)="toggleTheme()">
-      {{ currentTheme === 'dark' ? '☀️ Modo Claro' : '🌙 Modo Oscuro' }}
-    </button>
+    <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)">
+      <nb-option value="default">Tema Claro (Default)</nb-option>
+      <nb-option value="dark">Tema Oscuro (Dark)</nb-option>
+      <nb-option value="cosmic">Tema Violeta (Cosmic)</nb-option>
+      <nb-option value="corporate">Tema Corporativo (Corporate)</nb-option>
+    </nb-select>
   </nb-layout-header>
 
   <nb-layout-column>

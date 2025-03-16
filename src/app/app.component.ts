@@ -1,8 +1,7 @@
-import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { NbLayoutModule, NbThemeService, NbButtonModule } from '@nebular/theme';
-import { NbAuthModule } from '@nebular/auth';
+import { CommonModule } from '@angular/common';
+import {NbLayoutModule, NbSelectModule, NbThemeService} from '@nebular/theme';
 
 @Component({
   selector: 'app-root',
@@ -11,43 +10,24 @@ import { NbAuthModule } from '@nebular/auth';
     CommonModule,
     RouterOutlet,
     NbLayoutModule,
-    NbButtonModule,
-    NbAuthModule,
+    NbSelectModule,
   ],
-  templateUrl: 'app.component.html',
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  currentTheme: string = 'dark';
-  private readonly isBrowser: boolean;
+  currentTheme: string = 'default';
 
-  constructor(
-    private readonly themeService: NbThemeService,
-    @Inject(PLATFORM_ID) platformId: Object
-  ) {
-    this.isBrowser = isPlatformBrowser(platformId);
+  constructor(private readonly themeService: NbThemeService) {
+    this.currentTheme = this.themeService.currentTheme;
   }
 
   ngOnInit() {
-    if (this.isBrowser) {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        this.currentTheme = savedTheme;
-        this.themeService.changeTheme(savedTheme);
-      }
-
-      this.themeService.onThemeChange()
-        .subscribe((theme: any) => {
-          this.currentTheme = theme.name;
-          localStorage.setItem('theme', theme.name);
-        });
-    }
+    console.log(this.currentTheme);
   }
 
-  toggleTheme() {
-    if (this.isBrowser) {
-      const newTheme = this.currentTheme === 'dark' ? 'default' : 'dark';
-      this.themeService.changeTheme(newTheme);
-    }
+  changeTheme(themeName: string) {
+    this.themeService.changeTheme(themeName);
+    this.currentTheme = themeName;
   }
 }
