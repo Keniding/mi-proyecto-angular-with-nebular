@@ -12,13 +12,19 @@ import {
   NbSidebarModule,
   NbThemeModule,
   NbSelectModule,
-  NbOptionModule
+  NbOptionModule,
+  NbMenuModule,
+  NbIconModule,
+  NbButtonModule,
+  NbCardModule,
+  NbUserModule,
+  NbContextMenuModule, NbDialogModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken, NbTokenStorage } from '@nebular/auth';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { SSRSafeTokenStorage } from './auth-storage.service';
-import {socialLinks} from './core/utils/auth-social-links';
+import { socialLinks } from './core/utils/auth-social-links';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -39,7 +45,14 @@ export const appConfig: ApplicationConfig = {
       NbSidebarModule.forRoot(),
       NbSelectModule,
       NbOptionModule,
+      NbMenuModule.forRoot(),
+      NbIconModule,
+      NbButtonModule,
+      NbCardModule,
+      NbUserModule,
+      NbContextMenuModule,
       NbEvaIconsModule,
+      NbDialogModule.forRoot(),
       NbAuthModule.forRoot({
         strategies: [
           NbPasswordAuthStrategy.setup({

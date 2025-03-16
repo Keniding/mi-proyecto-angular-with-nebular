@@ -69,3 +69,42 @@ nb-menu {
 nb-user {
   cursor: pointer;
 }
+
+::ng-deep {
+  .theme-options-panel {
+    position: fixed !important;
+    transform: none !important;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1050;
+  }
+
+  nb-select {
+    .select-button {
+      min-width: 120px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: rgba(255, 99, 71, 0.1);
+      }
+    }
+  }
+
+  .nb-global-scrollblock {
+    position: static !important;
+    overflow: auto !important;
+  }
+
+  nb-option {
+    padding: 0.75rem 1rem;
+
+    &.selected {
+      background-color: rgba(255, 99, 71, 0.1); // Color tomate con transparencia
+      font-weight: bold;
+    }
+
+    &:hover {
+      background-color: rgba(255, 99, 71, 0.05); // Color tomate con más transparencia
+    }
+  }
+}

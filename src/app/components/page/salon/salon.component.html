@@ -1,0 +1,215 @@
+<nb-card class="salon-card">
+  <nb-card-header class="salon-header">
+    <div class="header-left">
+      <h4>Salón Principal</h4>
+      <div class="estado-indicadores">
+        <div class="indicador">
+          <div class="color-dot libre"></div>
+          <span>Libre ({{getMesasPorEstado('libre').length}})</span>
+        </div>
+        <div class="indicador">
+          <div class="color-dot ocupada"></div>
+          <span>Ocupada ({{getMesasPorEstado('ocupada').length}})</span>
+        </div>
+        <div class="indicador">
+          <div class="color-dot reservada"></div>
+          <span>Reservada ({{getMesasPorEstado('reservada').length}})</span>
+        </div>
+        <div class="indicador">
+          <div class="color-dot pendiente"></div>
+          <span>Pendiente ({{getMesasPorEstado('pendiente').length}})</span>
+        </div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="filtros-container">
+        <nb-select placeholder="Filtrar por estado" [(ngModel)]="filtroEstado" size="small">
+          <nb-option value="todos">Todos</nb-option>
+          <nb-option value="libre">Libres</nb-option>
+          <nb-option value="ocupada">Ocupadas</nb-option>
+          <nb-option value="reservada">Reservadas</nb-option>
+          <nb-option value="pendiente">Pendientes</nb-option>
+        </nb-select>
+        <nb-select placeholder="Capacidad" [(ngModel)]="filtroCapacidad" size="small">
+          <nb-option value="0">Todas</nb-option>
+          <nb-option value="2">2 personas</nb-option>
+          <nb-option value="4">4 personas</nb-option>
+          <nb-option value="6">6 personas</nb-option>
+          <nb-option value="8">8+ personas</nb-option>
+        </nb-select>
+      </div>
+      <button nbButton status="primary" size="medium" class="nueva-mesa-btn">
+        <nb-icon icon="plus-outline"></nb-icon>
+        Nueva Mesa
+      </button>
+    </div>
+  </nb-card-header>
+
+  <nb-card-body>
+    <nb-tabset fullWidth class="salon-tabs">
+      <nb-tab tabTitle="Todas" tabIcon="grid-outline">
+        <div class="vista-selector">
+          <button nbButton ghost [class.active]="vistaActual === 'grid'" (click)="cambiarVista('grid')">
+            <nb-icon icon="grid-outline"></nb-icon>
+          </button>
+          <button nbButton ghost [class.active]="vistaActual === 'list'" (click)="cambiarVista('list')">
+            <nb-icon icon="list-outline"></nb-icon>
+          </button>
+        </div>
+
+        <div [class]="vistaActual === 'grid' ? 'mesas-grid' : 'mesas-list'">
+          <div *ngFor="let mesa of getMesasFiltradas()"
+               id="mesa-{{mesa.id}}"
+               class="mesa-item"
+               [ngClass]="[mesa.estado, vistaActual === 'grid' ? 'grid-item' : 'list-item']"
+               [nbTooltip]="getTooltipContent(mesa)"
+               nbTooltipPlacement="top"
+               nbTooltipStatus="primary">
+
+            <div class="mesa-content">
+              <div class="mesa-numero">
+                <nb-icon [icon]="getIconoMesa(mesa)" class="mesa-icono"></nb-icon>
+                {{ mesa.numero }}
+              </div>
+
+              <div class="mesa-info">
+                <nb-badge [text]="mesa.capacidad + ' pers.'" status="info" position="top right" class="capacidad-badge"></nb-badge>
+                <div class="estado-badge" [ngClass]="mesa.estado">
+                  {{ getEstadoTexto(mesa.estado) }}
+                  <nb-icon [icon]="getEstadoIcono(mesa.estado)" class="estado-icono"></nb-icon>
+                </div>
+                <span *ngIf="mesa.tiempo" class="mesa-tiempo">
+                      <nb-icon icon="clock-outline" class="tiempo-icono"></nb-icon>
+                  {{ mesa.tiempo }}
+                    </span>
+              </div>
+
+              <div class="mesa-actions">
+                <button nbButton ghost size="small" class="action-btn"
+                        [disabled]="mesa.estado === 'libre'"
+                        [nbTooltip]="mesa.estado === 'libre' ? 'No hay pedido activo' : 'Ver pedido'"
+                        (click)="verPedido(mesa)">
+                  <nb-icon icon="eye-outline"></nb-icon>
+                </button>
+
+                <button nbButton ghost size="small" class="action-btn"
+                        [status]="mesa.estado === 'libre' ? 'success' : 'danger'"
+                        [nbTooltip]="mesa.estado === 'libre' ? 'Ocupar mesa' : 'Liberar mesa'"
+                        (click)="cambiarEstado(mesa)">
+                  <nb-icon [icon]="mesa.estado === 'libre' ? 'person-add-outline' : 'person-remove-outline'"></nb-icon>
+                </button>
+
+                <button nbButton ghost size="small" class="action-btn"
+                        [nbContextMenu]="mesaMenuItems"
+                        nbContextMenuTag="mesa-menu"
+                        (click)="seleccionarMesa(mesa)"
+                        nbTooltip="Más opciones">
+                  <nb-icon icon="more-vertical-outline"></nb-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="Interior" tabIcon="home-outline">
+        <div class="mesas-grid">
+          <div *ngFor="let mesa of getMesasPorUbicacion('interior')"
+               id="mesa-{{mesa.id}}"
+               class="mesa-item"
+               [ngClass]="mesa.estado">
+            <div class="mesa-content">
+              <div class="mesa-numero">{{ mesa.numero }}</div>
+              <div class="mesa-info">
+                <nb-badge [text]="mesa.capacidad + ' pers.'" status="info" position="top right" class="capacidad-badge"></nb-badge>
+                <div class="estado-badge" [ngClass]="mesa.estado">
+                  {{ getEstadoTexto(mesa.estado) }}
+                </div>
+                <span *ngIf="mesa.tiempo" class="mesa-tiempo">
+                      <nb-icon icon="clock-outline" class="tiempo-icono"></nb-icon>
+                  {{ mesa.tiempo }}
+                    </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="Terraza" tabIcon="sun-outline">
+        <div class="mesas-grid">
+          <div *ngFor="let mesa of getMesasPorUbicacion('terraza')"
+               id="mesa-{{mesa.id}}"
+               class="mesa-item"
+               [ngClass]="mesa.estado">
+            <div class="mesa-content">
+              <div class="mesa-numero">{{ mesa.numero }}</div>
+              <div class="mesa-info">
+                <nb-badge [text]="mesa.capacidad + ' pers.'" status="info" position="top right" class="capacidad-badge"></nb-badge>
+                <div class="estado-badge" [ngClass]="mesa.estado">
+                  {{ getEstadoTexto(mesa.estado) }}
+                </div>
+                <span *ngIf="mesa.tiempo" class="mesa-tiempo">
+                      <nb-icon icon="clock-outline" class="tiempo-icono"></nb-icon>
+                  {{ mesa.tiempo }}
+                    </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="Mapa" tabIcon="map-outline">
+        <div class="mapa-salon">
+          <div class="mapa-controls">
+            <div class="zoom-controls">
+              <button nbButton ghost size="small" (click)="ajustarZoom(0.1)" nbTooltip="Acercar">
+                <nb-icon icon="plus-outline"></nb-icon>
+              </button>
+              <button nbButton ghost size="small" (click)="ajustarZoom(-0.1)" nbTooltip="Alejar">
+                <nb-icon icon="minus-outline"></nb-icon>
+              </button>
+              <button nbButton ghost size="small" (click)="resetearZoom()" nbTooltip="Ajustar a pantalla">
+                <nb-icon icon="maximize-outline"></nb-icon>
+              </button>
+            </div>
+            <nb-select placeholder="Vista" [(ngModel)]="vistaMapa" size="small">
+              <nb-option value="todos">Todas las mesas</nb-option>
+              <nb-option value="interior">Interior</nb-option>
+              <nb-option value="terraza">Terraza</nb-option>
+            </nb-select>
+          </div>
+
+          <div class="mapa-container" [style.transform]="'scale(' + escalaZoom + ')'">
+            <button *ngFor="let mesa of getMesasFiltradasMapa()"
+                    id="mesa-{{mesa.id}}"
+                    class="mapa-mesa"
+                    [ngClass]="[mesa.estado, 'forma-' + mesa.forma]"
+                    [style.left.px]="getMesaPosicionX(mesa)"
+                    [style.top.px]="getMesaPosicionY(mesa)"
+                    [style.width.px]="getMesaTamanio(mesa)"
+                    [style.height.px]="getMesaTamanioAlto(mesa)"
+                    [nbTooltip]="getTooltipContent(mesa)"
+                    (click)="seleccionarMesa(mesa)"
+                    [attr.aria-label]="'Mesa ' + mesa.numero + ', ' + getEstadoTexto(mesa.estado) + ', ' + mesa.capacidad + ' personas'">
+              <span class="mesa-numero-mapa">{{ mesa.numero }}</span>
+              <nb-icon *ngIf="mesa.tiempo" icon="clock-outline" class="mesa-icono-tiempo" [nbTooltip]="'Tiempo: ' + mesa.tiempo"></nb-icon>
+              <span class="mesa-capacidad-badge" [nbTooltip]="mesa.capacidad + ' personas'">{{ mesa.capacidad }}</span>
+            </button>
+          </div>
+        </div>
+      </nb-tab>
+    </nb-tabset>
+  </nb-card-body>
+
+  <nb-card-footer class="salon-footer">
+    <div class="resumen">
+      <span><strong>Total:</strong> {{mesas.length}} mesas</span>
+      <span><strong>Ocupadas:</strong> {{getMesasPorEstado('ocupada').length}}</span>
+      <span><strong>Disponibles:</strong> {{getMesasPorEstado('libre').length}}</span>
+    </div>
+    <button nbButton outline status="primary" size="small">
+      <nb-icon icon="printer-outline"></nb-icon>
+      Imprimir vista
+    </button>
+  </nb-card-footer>
+</nb-card>

@@ -7,18 +7,41 @@
 @use '@nebular/theme/styles/globals' as nb-globals;
 @use '@nebular/auth/styles/globals' as nb-auth;
 
+// Tema personalizado para el restaurante
+$tomato-theme: (
+  color-primary-100: #ffe8e3,
+  color-primary-200: #ffccc2,
+  color-primary-300: #ffaa9a,
+  color-primary-400: #ff8872,
+  color-primary-500: #ff6347, // Tomate
+  color-primary-600: #db4e39,
+  color-primary-700: #b7392c,
+  color-primary-800: #93251f,
+  color-primary-900: #7a1815,
+
+  background-basic-color-1: white,
+  background-basic-color-2: #f7f7f7,
+  background-basic-color-3: #f2f2f2,
+  background-basic-color-4: #e6e6e6,
+
+  text-basic-color: #222b45,
+  text-alternate-color: white,
+
+  shadow: 0 0.5rem 1rem 0 rgba(44, 51, 73, 0.1),
+);
+
+// Registrar los temas
+$nb-themes: nb-register-theme($tomato-theme, tomato, default);
 $nb-themes: nb-register-theme((
 ), default, default);
-
 $nb-themes: nb-register-theme((
 ), dark, dark);
-
 $nb-themes: nb-register-theme((
 ), cosmic, cosmic);
-
 $nb-themes: nb-register-theme((
 ), corporate, corporate);
 
 // Incluye los estilos globales
 @include nb-globals.nb-theme-global();
 @include nb-auth.nb-auth-global();
+

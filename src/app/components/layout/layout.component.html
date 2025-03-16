@@ -1,0 +1,62 @@
+<!-- layout.component.html -->
+<nb-layout>
+  <nb-layout-header fixed>
+    <div class="header-container">
+      <div class="left">
+        <button nbButton ghost (click)="toggleSidebar()">
+          <nb-icon icon="menu-outline"></nb-icon>
+        </button>
+        <div class="logo-container">
+          <a href="#" class="logo">Tomato Restaurant</a>
+        </div>
+      </div>
+
+      <div class="right">
+        <nb-select
+          [selected]="currentTheme"
+          (selectedChange)="changeTheme($event)"
+          status="primary"
+          size="small"
+          scrollStrategy="noop"
+          optionsPanelClass="theme-options-panel">
+          <nb-option value="default">Claro</nb-option>
+          <nb-option value="dark">Oscuro</nb-option>
+          <nb-option value="cosmic">Violeta</nb-option>
+          <nb-option value="corporate">Corporativo</nb-option>
+        </nb-select>
+
+        <nb-user
+          [nbContextMenu]="userMenu"
+          nbContextMenuTag="user-menu"
+          name="Camarero"
+          title="Sala Principal"
+          size="medium"
+          [showTitle]="false">
+        </nb-user>
+      </div>
+    </div>
+  </nb-layout-header>
+
+  <nb-sidebar
+    tag="menu-sidebar"
+    responsive
+    [state]="sidebarState"
+    fixed
+    [containerFixed]="false"
+    [compactedBreakpoints]="['xs', 'is', 'sm', 'md']"
+    [collapsedBreakpoints]="['xs', 'is']"
+    (stateChange)="onSidebarStateChange($event)">
+    <nb-menu [items]="items"></nb-menu>
+  </nb-sidebar>
+
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+
+  <nb-layout-footer fixed>
+    <div class="footer-container">
+      <span>Tomato Restaurant © 2025</span>
+      <span>v1.0.0</span>
+    </div>
+  </nb-layout-footer>
+</nb-layout>

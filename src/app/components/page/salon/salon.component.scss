@@ -1,0 +1,571 @@
+.salon-card {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  height: calc(100vh - 6rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.salon-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #edf1f7;
+  background-color: white;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.header-left h4 {
+  margin: 0;
+  font-weight: 600;
+  color: #222b45;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nueva-mesa-btn {
+  background-color: var(--color-primary-500);
+  border-color: var(--color-primary-500);
+  transition: all 0.3s;
+}
+
+.nueva-mesa-btn:hover {
+  background-color: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 99, 71, 0.3);
+}
+
+.estado-indicadores {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.indicador {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.color-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+}
+
+.color-dot.libre {
+  background-color: #00e676;
+}
+
+.color-dot.ocupada {
+  background-color: #ff3d71;
+}
+
+.color-dot.reservada {
+  background-color: #0095ff;
+}
+
+.color-dot.pendiente {
+  background-color: #ffaa00;
+}
+
+.filtros-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+nb-card-body {
+  padding: 0;
+  overflow: auto;
+  flex: 1;
+}
+
+.salon-tabs {
+  height: 100%;
+}
+
+.vista-selector {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #edf1f7;
+}
+
+.vista-selector button.active {
+  color: var(--color-primary-500);
+  background-color: rgba(255, 99, 71, 0.1);
+}
+
+.mesas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.25rem;
+  padding: 1.5rem;
+}
+
+.mesas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.mesa-item.list-item {
+  padding: 0.75rem 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.mesa-item.list-item .mesa-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.mesa-item.list-item .mesa-numero {
+  width: 80px;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.mesa-item.list-item .mesa-info {
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 0;
+  padding: 0 1rem;
+}
+
+.mesa-item.list-item .mesa-actions {
+  width: 120px;
+  justify-content: flex-end;
+}
+
+.mesa-item.libre {
+  background-color: rgba(0, 230, 118, 0.08);
+  border: 1px solid rgba(0, 230, 118, 0.5);
+}
+
+.mesa-item.ocupada {
+  background-color: rgba(255, 61, 113, 0.08);
+  border: 1px solid rgba(255, 61, 113, 0.5);
+}
+
+.mesa-item.reservada {
+  background-color: rgba(0, 149, 255, 0.08);
+  border: 1px solid rgba(0, 149, 255, 0.5);
+}
+
+.mesa-item.pendiente {
+  background-color: rgba(255, 170, 0, 0.08);
+  border: 1px solid rgba(255, 170, 0, 0.5);
+}
+
+.mesa-item.grid-item .mesa-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.mesa-numero {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.mesa-icono {
+  font-size: 1.2rem;
+}
+
+.mesa-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.75rem 0;
+  position: relative;
+  gap: 0.75rem;
+}
+
+.estado-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.estado-badge.libre {
+  background-color: rgba(0, 230, 118, 0.25);
+  color: #008542;
+}
+
+.estado-badge.ocupada {
+  background-color: rgba(255, 61, 113, 0.25);
+  color: #c91f5a;
+}
+
+.estado-badge.reservada {
+  background-color: rgba(0, 149, 255, 0.25);
+  color: #0064b5;
+}
+
+.estado-badge.pendiente {
+  background-color: rgba(255, 170, 0, 0.25);
+  color: #b77800;
+}
+
+.estado-icono, .tiempo-icono {
+  font-size: 0.9rem;
+}
+
+.mesa-tiempo {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.mesa-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.action-btn {
+  border-radius: 50%;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.1);
+}
+
+.salon-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background-color: #f7f9fc;
+  border-top: 1px solid #edf1f7;
+}
+
+.resumen {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
+}
+
+@keyframes pulso {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.mapa-mesa:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.mapa-salon {
+  padding: 1.5rem;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mapa-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #edf1f7;
+}
+
+.zoom-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.mapa-container {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  background-color: #f7f9fc;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  transform-origin: top left;
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+  margin-top: 0.5rem;
+}
+
+.mapa-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(#e5e9f0 1px, transparent 1px),
+  linear-gradient(90deg, #e5e9f0 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.mapa-mesa {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  font-family: inherit;
+  font-size: inherit;
+  overflow: visible;
+}
+
+.mapa-mesa.forma-redonda {
+  border-radius: 50%;
+}
+
+.mapa-mesa.forma-cuadrada {
+  border-radius: 0.5rem;
+}
+
+.mapa-mesa.forma-rectangular {
+  border-radius: 0.5rem;
+}
+
+.mapa-mesa.libre {
+  background-color: rgba(0, 230, 118, 0.2);
+  border: 2px solid rgba(0, 230, 118, 0.7);
+}
+
+.mapa-mesa.ocupada {
+  background-color: rgba(255, 61, 113, 0.2);
+  border: 2px solid rgba(255, 61, 113, 0.7);
+}
+
+.mapa-mesa.reservada {
+  background-color: rgba(0, 149, 255, 0.2);
+  border: 2px solid rgba(0, 149, 255, 0.7);
+}
+
+.mapa-mesa.pendiente {
+  background-color: rgba(255, 170, 0, 0.2);
+  border: 2px solid rgba(255, 170, 0, 0.7);
+}
+
+.mapa-mesa:focus {
+  outline: 3px solid #36f;
+  outline-offset: 2px;
+  z-index: 20;
+}
+
+.mapa-mesa:focus-visible {
+  outline: 3px solid #36f;
+  outline-offset: 2px;
+  z-index: 20;
+}
+
+.mesa-numero-mapa {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.mesa-icono-tiempo {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 0.9rem;
+  color: #444;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  padding: 0.2rem;
+  z-index: 5;
+}
+
+.mesa-capacidad-badge {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 0.7rem;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  z-index: 5;
+}
+
+.mesa-info nb-badge {
+  margin-bottom: 0.75rem;
+}
+
+.mapa-mesa nb-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+.mesa-item:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mapa-mesa:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mesa-item.estado-cambiando {
+  animation: pulso 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes pulso {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.mapa-mesa:focus,
+.action-btn:focus,
+.mesa-item:focus {
+  outline: 3px solid #36f;
+  outline-offset: 2px;
+  z-index: 20;
+  box-shadow: 0 0 0 3px rgba(51, 102, 255, 0.25);
+}
+
+.mapa-mesa:focus:not(:focus-visible),
+.action-btn:focus:not(:focus-visible),
+.mesa-item:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.mapa-mesa:focus-visible,
+.action-btn:focus-visible,
+.mesa-item:focus-visible {
+  outline: 3px solid #36f;
+  outline-offset: 2px;
+  z-index: 20;
+  box-shadow: 0 0 0 3px rgba(51, 102, 255, 0.25);
+}
+
+@media (max-width: 768px) {
+  .mesas-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .mesa-numero {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .estado-badge {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .header-left h4 {
+    font-size: 1.25rem;
+  }
+
+  .estado-indicadores {
+    flex-wrap: wrap;
+  }
+}
+
+.capacidad-badge {
+  margin-right: 0.25rem !important;
+}
+
+:host ::ng-deep nb-badge {
+  position: relative;
+  z-index: 4;
+}
+
+nb-badge {
+  margin: 0;
+}
+
+:host ::ng-deep nb-badge.position-top-right {
+  margin-top: 0 !important;
+  margin-right: 0 !important;
+  top: -8px !important;
+  right: -8px !important;
+}
+
+:host ::ng-deep .capacidad-badge .badge {
+  padding: 0.25rem 0.5rem;
+  font-weight: 500;
+  border-radius: 1rem;
+  background-color: rgba(0, 149, 255, 0.2);
+  color: #0070cc;
+  border: 1px solid rgba(0, 149, 255, 0.4);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.mesa-item {
+  position: relative;
+  padding-top: 0.5rem;
+}
+
+.mesa-item.grid-item {
+  padding-top: 1.5rem;
+}
